@@ -64,7 +64,7 @@ CREATE TYPE tp_check_filmes AS OBJECT (
 
 CREATE TYPE BODY tp_check_filmes AS
     CONSTRUCTOR FUNCTION tp_check_filmes(SELF IN OUT NOCOPY tp_check_filmes, name VARCHAR2) 
-                               RETURN SELF AS RESULT IS
+                              RETURN SELF AS RESULT IS
     BEGIN
         SELF.name := name;
         RETURN;
@@ -90,9 +90,56 @@ ALTER TYPE tp_filme modify attribute Nome VARCHAR(50) CASCADE;
                                                    
 -- 13.
 ALTER TYPE tp_Filho DROP ATTRIBUTE Nascimento INVALIDATE;
+                                                   
+--16
+select Fi.ref_tp_Cliente.CPF
+from tb_Filho Fi
+where Fi.ref_tp_Cliente is dangling;
+/
+
+--17 Botei Um scope is na criação da tabela filho
+
+--18 Script de Criação
+
+--19
+select Ing.ref_tp_Assento.Adaptavel
+from tb_Ingresso Ing
+where Ing.Cliente_id in (select Cl.n_cadastro
+					from tb_Cliente Cl
+					where Cl.CPF = 1111);
+/
+
+--20
+select DEREF(Fi.ref_tp_Cliente) as pai 
+from tb_Filho Fi;
+/
+
 
 -- 22 e 25. criacao de consulta com TABLE que exibe os dados de um VARRAY
 select e.nome || ' ' || e.preco || ' ' as "comida e preco"
+--16
+select Fi.ref_tp_Cliente.CPF
+from tb_Filho Fi
+where Fi.ref_tp_Cliente is dangling;
+/
+
+--17 Botei Um scope is na criação da tabela filho
+
+--18 Script de Criação
+
+--19
+select Ing.ref_tp_Assento.Adaptavel
+from tb_Ingresso Ing
+where Ing.Cliente_id in (select Cl.n_cadastro
+					from tb_Cliente Cl
+					where Cl.CPF = 1111);
+/
+
+--20
+select DEREF(Fi.ref_tp_Cliente) as pai 
+from tb_Filho Fi;
+/
+
 from carrinhodecomida2 w, table(w.comidas) e;
 
 -- 23. criacao de consultas com LIKE, BETWEEN, ORDER BY, GROUP BY, HAVING
